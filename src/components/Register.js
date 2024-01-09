@@ -11,11 +11,29 @@ function Register() {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user); //console loging user info for now
-        //plan to make call to backend
-    }
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result);
+            } else {
+                const error = await response.json();
+                console.error('Registration failed:', error);
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+        }
+    };
+    
 
     return (
         <div>

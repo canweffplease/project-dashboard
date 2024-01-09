@@ -12,10 +12,29 @@ function Login() {
         setUser({ ...user, [e.target.name]: e.target.value});
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials)
+            });
+    
+            if (response.ok) {
+                const { token } = await response.json();
+                localStorage.setItem('token', token);
+            } else {
+                const error = await response.json();
+                console.error('Login failed:', error);
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+        }
     };
+    
 
     return(
         <div>
