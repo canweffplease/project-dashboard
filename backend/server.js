@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
-const port = 5000;
 
-app.get('/', (req,res) => {
-    res.send('Hello World!');
+app.use(express.json()); //middleware for parsing json bodies and such!
+
+app.post('/api/register', (req,res) => {
+    console.log(req.body);
+    res.send('User registration');
 });
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+app.post('/api/login', (req,res) => {
+    console.log(req.body);
+    res.send('User login');
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
