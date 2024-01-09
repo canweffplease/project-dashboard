@@ -1,3 +1,5 @@
+//mongodb+srv://<username>:<password>@cluster0.vcsfwxk.mongodb.net/?retryWrites=true&w=majority
+
 import React, { useState } from 'react';
 
 function Login() {
